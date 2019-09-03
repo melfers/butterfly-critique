@@ -1,0 +1,40 @@
+{
+  "butterflies": [
+    {
+      "id": "wxyz9876",
+      "commonName": "test-butterfly",
+      "species": "Testium butterflius",
+      "article": "https://example.com/testium_butterflius"
+    },
+    {
+      "id": "new-butterfly-id",
+      "commonName": "Boop",
+      "species": "Boopi beepi",
+      "article": "https://example.com/boopi_beepi"
+    }
+  ],
+  "users": [
+    {
+      "id": "abcd1234",
+      "username": "test-user"
+    },
+    {
+      "id": "new-user-id",
+      "username": "Buster"
+    }
+  ],
+  "ratings": [
+    {
+      "id": "abcd0987",
+      "butterflyId": "monarch",
+      "userId": "test-user-id",
+      "rating": 5
+    },
+    {
+      "id": "new-rating-id",
+      "butterflyId": "butterfly-id",
+      "userId": "user-id",
+      "rating": 3
+    }
+  ]
+}

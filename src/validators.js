@@ -20,7 +20,7 @@ const validateRating = v.assert(
   v.strictShape({
     butterflyId: v.required(v.string),
     userId: v.required(v.string),
-    rating: v.required(v.number(v.range[(0, 5)]))
+    rating: v.required(v.range([0, 5]))
   })
 );
 

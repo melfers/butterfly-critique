@@ -35,6 +35,12 @@
       "commonName": "Mexican Bluewing",
       "species": "Myscelia ethusa",
       "article": "https://en.wikipedia.org/wiki/Myscelia_ethusa"
+    },
+    {
+      "id": "KIlNSDKiC",
+      "commonName": "Brimstone",
+      "species": "Gonepteryx rhamni",
+      "article": "https://en.wikipedia.org/wiki/Gonepteryx_rhamni"
     }
   ],
   "users": [
@@ -49,6 +55,67 @@
     {
       "id": "aqekk3t4kw",
       "username": "metamorphosize_me"
+    }
+  ],
+  "ratings": [
+    {
+      "butterflyId": "GI9_EuH8s1",
+      "userId": "OOWzUaHLsK",
+      "rating": 3
+    },
+    {
+      "butterflyId": "xRKSdjkBt4",
+      "userId": "OOWzUaHLsK",
+      "rating": 5
+    },
+    {
+      "butterflyId": "0MUBKMu07U",
+      "userId": "OOWzUaHLsK",
+      "rating": 2
+    },
+    {
+      "butterflyId": "NLktii5zvK",
+      "userId": "OOWzUaHLsK",
+      "rating": 4
+    },
+    {
+      "butterflyId": "SMyaT24g-N",
+      "userId": "OOWzUaHLsK",
+      "rating": 5
+    },
+    {
+      "butterflyId": "SMyaT24g-N",
+      "userId": "sdmU7-wkQX",
+      "rating": 1
+    },
+    {
+      "butterflyId": "DCenP4kQNQ",
+      "userId": "sdmU7-wkQX",
+      "rating": 3
+    },
+    {
+      "id": "OKM1V7cIY",
+      "butterflyId": "DCenP4kQNQ",
+      "userId": "sdmU7-wkQX",
+      "rating": 3
+    },
+    {
+      "id": "0v9bBpqwY",
+      "butterflyId": "DCenP4kQNQ",
+      "userId": "sdmU7-wkQX",
+      "rating": 3
+    },
+    {
+      "id": "pBXRbnw1l",
+      "butterflyId": "DCenP4kQNQ",
+      "userId": "sdmU7-wkQX",
+      "rating": 3
+    },
+    {
+      "id": "pCHdmng7o",
+      "butterflyId": "DCenP4kQNQ",
+      "userId": "sdmU7-wkQX",
+      "rating": 3
     }
   ]
 }
