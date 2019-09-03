@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const v = require('@mapbox/fusspot');
+const v = require("@mapbox/fusspot");
 
 const validateButterfly = v.assert(
   v.strictShape({
@@ -16,7 +16,16 @@ const validateUser = v.assert(
   })
 );
 
+const validateRating = v.assert(
+  v.strictShape({
+    butterflyId: v.required(v.string),
+    userId: v.required(v.string),
+    rating: v.required(v.number(v.range[(0, 5)]))
+  })
+);
+
 module.exports = {
   validateButterfly,
-  validateUser
+  validateUser,
+  validateRating
 };

@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const express = require('express');
-const lowdb = require('lowdb');
-const FileAsync = require('lowdb/adapters/FileAsync');
-const shortid = require('shortid');
+const express = require("express");
+const lowdb = require("lowdb");
+const FileAsync = require("lowdb/adapters/FileAsync");
+const shortid = require("shortid");
 
-const constants = require('./constants');
-const { validateButterfly, validateUser } = require('./validators');
+const constants = require("./constants");
+const { validateButterfly, validateUser } = require("./validators");
 
 async function createApp(dbPath) {
   const app = express();
@@ -15,23 +15,67 @@ async function createApp(dbPath) {
   const db = await lowdb(new FileAsync(dbPath));
   await db.read();
 
-  app.get('/', (req, res) => {
-    res.json({ message: 'Server is running!' });
+  app.get("/", (req, res) => {
+    res.json({ message: "Server is running!" });
   });
 
+  /* ----- RATINGS ----- */
+  /**
+   * Get ratings for a user
+   * GET
+   */
+  app.get("/ratings/:userId", async (req, res) => {
+    const ratings = await db
+      .get("ratings")
+      .find({ userId: req.params.userId })
+      .value();
+
+    if (!ratings) {
+      return res
+        .status(404)
+        .json({ error: "Sorry, there are no ratings for this user" });
+    }
+
+    res.json(ratings);
+  });
+
+  /**
+   * Add a new user rating
+   * PUT
+   */
+  app.post("/ratings", async (req, res) => {
+    try {
+      validateRating(req.body);
+    } catch (error) {
+      return res.status(400).json({ error: "Invalid request body" });
+    }
+
+    const newRating = {
+      id: shortid.generate(),
+      ...req.body
+    };
+
+    await db
+      .get("ratings")
+      .push(newRating)
+      .write();
+
+    res.json(newRating);
+  });
   /* ----- BUTTERFLIES ----- */
 
   /**
    * Get an existing butterfly
    * GET
    */
-  app.get('/butterflies/:id', async (req, res) => {
-    const butterfly = await db.get('butterflies')
+  app.get("/butterflies/:id", async (req, res) => {
+    const butterfly = await db
+      .get("butterflies")
       .find({ id: req.params.id })
       .value();
 
     if (!butterfly) {
-      return res.status(404).json({ error: 'Not found' });
+      return res.status(404).json({ error: "Not found" });
     }
 
     res.json(butterfly);
@@ -41,11 +85,11 @@ async function createApp(dbPath) {
    * Create a new butterfly
    * POST
    */
-  app.post('/butterflies', async (req, res) => {
+  app.post("/butterflies", async (req, res) => {
     try {
       validateButterfly(req.body);
     } catch (error) {
-      return res.status(400).json({ error: 'Invalid request body' });
+      return res.status(400).json({ error: "Invalid request body" });
     }
 
     const newButterfly = {
@@ -53,13 +97,13 @@ async function createApp(dbPath) {
       ...req.body
     };
 
-    await db.get('butterflies')
+    await db
+      .get("butterflies")
       .push(newButterfly)
       .write();
 
     res.json(newButterfly);
   });
-
 
   /* ----- USERS ----- */
 
@@ -67,13 +111,14 @@ async function createApp(dbPath) {
    * Get an existing user
    * GET
    */
-  app.get('/users/:id', async (req, res) => {
-    const user = await db.get('users')
+  app.get("/users/:id", async (req, res) => {
+    const user = await db
+      .get("users")
       .find({ id: req.params.id })
       .value();
 
     if (!user) {
-      return res.status(404).json({ error: 'Not found' });
+      return res.status(404).json({ error: "Not found" });
     }
 
     res.json(user);
@@ -83,11 +128,11 @@ async function createApp(dbPath) {
    * Create a new user
    * POST
    */
-  app.post('/users', async (req, res) => {
+  app.post("/users", async (req, res) => {
     try {
       validateUser(req.body);
     } catch (error) {
-      return res.status(400).json({ error: 'Invalid request body' });
+      return res.status(400).json({ error: "Invalid request body" });
     }
 
     const newUser = {
@@ -95,7 +140,8 @@ async function createApp(dbPath) {
       ...req.body
     };
 
-    await db.get('users')
+    await db
+      .get("users")
       .push(newUser)
       .write();
 
