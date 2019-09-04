@@ -28,13 +28,13 @@ async function createApp(dbPath) {
    * Get ratings for a user
    * GET
    */
-  app.get("/ratings/users/:userId", async (req, res) => {
+  app.get("/users/:userId/ratings", async (req, res) => {
     const ratings = await db
       .get("ratings")
       .filter({ userId: req.params.userId })
       .value();
 
-    if (ratings.length === 0) {
+    if (!ratings.length) {
       return res.status(404).json({ error: "Not found" });
     }
 
