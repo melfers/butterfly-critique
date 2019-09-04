@@ -34,9 +34,17 @@ async function createApp(dbPath) {
       .filter({ userId: req.params.userId })
       .value();
 
-    if (ratings.length == 0) {
+    if (ratings.length === 0) {
       return res.status(404).json({ error: "Not found" });
     }
+
+    const butterflyData = [];
+
+    ratings.map(rating => {
+      butterflyData.push(getButterfly(rating.butterflyId));
+    });
+
+    console.log(butterflyData);
 
     ratings.sort((a, b) => {
       return a.rating - b.rating;
@@ -44,12 +52,26 @@ async function createApp(dbPath) {
     res.json(ratings);
   });
 
+  function getButterfly(id) {
+    app.get(`/butterflies/${id}`, async (req, res) => {
+      const butterfly = await db
+        .get("butterflies")
+        .find({ id: id })
+        .value();
+
+      if (!butterfly) {
+        return res.status(404).json({ error: "Not found" });
+      }
+
+      res.json(butterfly);
+    });
+  }
+
   /**
    * Add a new user rating
    * POST
    */
   app.post("/ratings", async (req, res) => {
-    console.log(req.body);
     try {
       validateRating(req.body);
     } catch (error) {
