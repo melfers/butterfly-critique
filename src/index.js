@@ -38,34 +38,18 @@ async function createApp(dbPath) {
       return res.status(404).json({ error: "Not found" });
     }
 
-    const butterflyData = [];
-
-    ratings.map(rating => {
-      butterflyData.push(getButterfly(rating.butterflyId));
-    });
-
-    console.log(butterflyData);
+    for (const rating of ratings) {
+      rating.butterfly = await db
+        .get("butterflies")
+        .find({ id: rating.butterflyId })
+        .value();
+    }
 
     ratings.sort((a, b) => {
       return a.rating - b.rating;
     });
     res.json(ratings);
   });
-
-  function getButterfly(id) {
-    app.get(`/butterflies/${id}`, async (req, res) => {
-      const butterfly = await db
-        .get("butterflies")
-        .find({ id: id })
-        .value();
-
-      if (!butterfly) {
-        return res.status(404).json({ error: "Not found" });
-      }
-
-      res.json(butterfly);
-    });
-  }
 
   /**
    * Add a new user rating
